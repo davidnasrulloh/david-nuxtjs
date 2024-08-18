@@ -1,10 +1,29 @@
-function isAuthenticated(): boolean {
+import { getToken } from "~/service/cookies";
+
+export function isAuthenticated(): boolean {
+	if (import.meta.client) {
+		const token = getToken();
+		console.log("Token:", token); // Debug token value
+		return !!token;
+	}
 	return false;
 }
 
 export default defineNuxtRouteMiddleware((to, from) => {
-	// isAuthenticated() is an example method verifying if a user is authenticated
-	if (isAuthenticated() === false) {
-		return navigateTo("/login");
+	if (import.meta.client) {
+		console.log("Navigating to:", to.path, "from:", from.path);
+
+		if (isAuthenticated()) {
+			if (to.path === "/login") {
+				// Jika pengguna mencoba mengakses halaman login, redirect ke dashboard
+				return navigateTo("/dashboard");
+			}
+		} else {
+			if (to.path !== "/login") {
+				return navigateTo("/login");
+			}
+		}
+	} else {
+		console.warn("Middleware executed on server-side");
 	}
 });

@@ -15,7 +15,7 @@ export default defineNuxtConfig({
 			function setMiddleware(pages: NuxtPage[]) {
 				for (const page of pages) {
 					// Hanya tambahkan middleware untuk halaman di bawah rute dashboard
-					if (page.path?.startsWith("/dashboard")) {
+					if (page.path?.startsWith("/dashboard") || page.path?.startsWith("/login")) {
 						page.meta ||= {};
 
 						page.meta.middleware = ["auth"];

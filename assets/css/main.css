@@ -1,3 +1,166 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: #ffffff;
+	font-family: "Poppins", sans-serif;
+	position: relative;
+	min-width: 300px;
+}
+
+/* Firefox */
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #5356ff #ffffff;
+}
+
+/* Chrome, Edge and Safari */
+
+*::-webkit-scrollbar {
+	width: 10px;
+	width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+	border-radius: 5px;
+	background-color: #ffffff;
+}
+
+*::-webkit-scrollbar-track:hover {
+	background-color: #ffffff;
+}
+
+*::-webkit-scrollbar-track:active {
+	background-color: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+	border-radius: 20px;
+	background-color: #5356ff;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: #5356ff;
+}
+
+*::-webkit-scrollbar-thumb:active {
+	background-color: #5356ff;
+}
+
+.mobile-navbar {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: -100%;
+	background-color: #ffffff;
+	z-index: 999999;
+	justify-content: center;
+	align-items: center;
+	transition: all 0.5s ease-in-out;
+}
+
+.open-nav {
+	left: 0;
+}
+
+.mobile-navbar_links {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	font-size: 2.3rem;
+	gap: 3rem;
+	text-align: center;
+	color: #2c30f2;
+}
+
+.mobile-navbar_links li :hover {
+	font-weight: 600;
+}
+
+.mobile-hamb {
+	font-size: 2rem;
+	display: none;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.mobile-hamb:hover {
+	color: #ff4d30;
+}
+
+@media (max-width: 1000px) {
+	.mobile-hamb {
+		display: flex;
+	}
+}
+
+.navbar {
+	/* max-width: 133rem; */
+	width: 100%;
+	height: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2.7rem 2rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 99999;
+	margin: 0 auto;
+}
+
+.navbar_links {
+	display: flex;
+}
+
+.navbar_links li {
+	font-size: 1.6rem;
+	font-family: "Poppins", sans-serif;
+	font-weight: 500;
+	color: #7b7dfd;
+	text-decoration: none;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.navbar_links li:hover {
+	color: #2c30f2;
+}
+
+@media (max-width: 1000px) {
+	.navbar_links {
+		display: none;
+	}
+}
+
+.blue__gradient {
+	background: linear-gradient(180deg, rgba(44, 22, 110, 0) 0%, #8a6aff 250%);
+	filter: blur(123px);
+}
+
+.pink__gradient {
+	background: linear-gradient(90deg, #f4c4f3 0%, #fc67fa 100%);
+	filter: blur(900px);
+}
+
+.white__gradient {
+	background: rgba(161, 134, 255, 0.6);
+	filter: blur(750px);
+}
