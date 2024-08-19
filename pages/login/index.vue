@@ -99,7 +99,7 @@ const copyToClipboard = (elementId: string) => {
 				copied.value = elementId === "email-info" ? "Email" : "Password";
 				setTimeout(() => {
 					copied.value = null;
-				}, 2000); // Reset copied message after 2 seconds
+				}, 10000);
 			})
 			.catch((err) => {
 				console.error("Failed to copy text: ", err);

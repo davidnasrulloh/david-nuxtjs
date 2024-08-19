@@ -45,13 +45,13 @@ onMounted(() => {
 <template>
 	<Navbar />
 	<section class="flex flex-col min-h-screen sm:px-16 md:px-32 lg:px-44 px-12 md:py-40 py-16 w-full justify-center items-center">
-		<div v-if="isLoading" class="text-center">Loading...</div>
+		<div v-if="isLoading" class="text-center text-xl">Loading...</div>
 		<div v-else-if="errorMessage" class="text-center text-red-500">
 			{{ errorMessage }}
 		</div>
 		<div v-else v-if="user" class="flex flex-col items-center gap-8 w-full">
-			<div class="w-[12rem] mb-4">
-				<img :src="user.avatar" alt="User Avatar" class="rounded-full" />
+			<div class="w-[20rem] mb-4">
+				<img :src="user.avatar" alt="User Avatar" class="rounded-full w-full" />
 			</div>
 			<div class="text-center">
 				<h1 class="text-3xl font-bold">{{ user.first_name }} {{ user.last_name }}</h1>

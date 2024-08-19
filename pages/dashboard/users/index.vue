@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import Navbar from "~/components/common/Navbar.vue";
 import { getUserList } from "~/service/usersApi";
 import type { IListUser } from "~/types/users";
+import CardUser from "~/components/dashboard/CardUser.vue";
 
 useSeoMeta({
 	title: "List Users",
@@ -15,17 +16,17 @@ definePageMeta({
 const users = ref<IListUser>();
 const isLoading = ref(true);
 const page = ref(1);
-const totalPages = ref(1); // Tambahkan totalPages untuk pagination
+const totalPages = ref(1);
 const errorMessage = ref<string | null>(null);
 
 const fetchUsers = async () => {
 	try {
 		const response = await getUserList(page.value);
 		users.value = response;
-		totalPages.value = response.total_pages; // Dapatkan total_pages dari API
+		totalPages.value = response.total_pages;
 	} catch (error) {
 		errorMessage.value = "Failed to load users.";
-		console.error("Error fetching users:", error);
+		// console.error("Error fetching users:", error);
 	} finally {
 		isLoading.value = false;
 	}
@@ -42,6 +43,10 @@ const handlePageChange = (newPage: number) => {
 onMounted(() => {
 	fetchUsers();
 });
+
+// watchEffect(() => {
+// 	console.log("itemku users", users.value);
+// });
 </script>
 
 <template>
@@ -68,24 +73,12 @@ onMounted(() => {
 			</div>
 
 			<div class="flex flex-wrap w-full justify-center gap-12 md:gap-20 my-16">
-				<!-- Menampilkan pesan loading atau error jika diperlukan -->
 				<div v-if="isLoading" class="text-center text-2xl">Loading...</div>
 				<div v-else-if="errorMessage" class="text-center text-red-500">
 					{{ errorMessage }}
 				</div>
-				<!-- Menampilkan daftar pengguna jika ada -->
 				<ul v-if="!isLoading" class="w-full list-none p-0 flex flex-col items-center gap-8">
-					<li class="w-full flex flex-row items-center" v-for="user in users?.data" :key="user.id">
-						<div class="w-[12rem]">
-							<img :src="user.avatar" alt="" />
-						</div>
-						<NuxtLink
-							:to="`/dashboard/users/${user.id}`"
-							class="h-full p-8 flex flex-row items-center border cursor-pointer border-gray-200 text-xl lg:text-3xl rounded-md hover:bg-gray-100 w-full text-start"
-						>
-							{{ user.first_name }} {{ user.last_name }} - {{ user.email }}
-						</NuxtLink>
-					</li>
+					<CardUser v-for="user in users?.data" :key="user.id" :user="user" />
 				</ul>
 			</div>
 		</div>

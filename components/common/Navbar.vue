@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { Icon } from "@iconify/vue";
-import { useRoute } from "vue-router";
-import davidImg from "~/assets/images/img_david.jpg"; // Adjust import paths if necessary
-import { styles } from "#imports"; // Adjust import paths if necessary
+import davidImg from "~/assets/images/img_david.jpg";
 import { isAuthenticated } from "~/middleware/auth";
 import CustomButton from "./CustomButton.vue";
 import { logout } from "~/service/authApi";
-
-const props = defineProps({
-	backgroundStyle: String,
-});
 
 const nav = ref(false);
 const isLoading = ref(false);
@@ -62,6 +56,10 @@ const handleLogout = async () => {
 					<NuxtLink v-if="!isAuthenticated()" @click.prevent="handleClickIfNotLogin" class="cursor-pointer"> Dashboard </NuxtLink>
 				</li>
 				<li class="w-full">
+					<NuxtLink v-if="isAuthenticated()" to="/dashboard/users" :class="{ 'font-bold': $route.path === '/dashboard/users' }"> List User </NuxtLink>
+					<NuxtLink v-if="!isAuthenticated()" @click.prevent="handleClickIfNotLogin" class="cursor-pointer"> List User </NuxtLink>
+				</li>
+				<li class="w-full">
 					<NuxtLink to="https://github.com/davidnasrulloh" target="_blank">My Github</NuxtLink>
 				</li>
 			</ul>
@@ -77,7 +75,7 @@ const handleLogout = async () => {
 		</section>
 
 		<!-- Desktop View -->
-		<div :class="['navbar', backgroundStyle, styles.paddingX]">
+		<div class="navbar bg-white lg:px-44">
 			<router-link to="/" @click.native="scrollToTop">
 				<div class="flex flex-row">
 					<img :src="davidImg" class="w-20 rounded-full mr-4 md:mr-8" />
@@ -91,6 +89,10 @@ const handleLogout = async () => {
 				<li class="mr-10">
 					<NuxtLink v-if="isAuthenticated()" to="/dashboard" :class="{ 'font-bold': $route.path === '/dashboard' }"> Dashboard </NuxtLink>
 					<NuxtLink v-if="!isAuthenticated()" @click.prevent="handleClickIfNotLogin" class="cursor-pointer text-blue-500"> Dashboard </NuxtLink>
+				</li>
+				<li class="mr-10">
+					<NuxtLink v-if="isAuthenticated()" to="/dashboard/users" :class="{ 'font-bold': $route.path === '/dashboard/users' }"> List User </NuxtLink>
+					<NuxtLink v-if="!isAuthenticated()" @click.prevent="handleClickIfNotLogin" class="cursor-pointer"> List User </NuxtLink>
 				</li>
 				<li class="mr-10">
 					<NuxtLink to="https://github.com/davidnasrulloh" target="_blank">My Github</NuxtLink>

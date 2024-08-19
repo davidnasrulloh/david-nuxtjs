@@ -2,7 +2,6 @@
 import { defineProps, defineEmits } from "vue";
 import { Icon } from "@iconify/vue";
 
-// Define the props with their types
 const props = defineProps({
 	name: String,
 	inputStyle: String,
@@ -20,7 +19,6 @@ const props = defineProps({
 	errorText: String,
 });
 
-// Emit untuk update modelValue
 const emit = defineEmits(["update:modelValue"]);
 </script>
 

@@ -1,6 +1,5 @@
 <script setup>
 import { defineProps } from "vue";
-import { buttonStyle } from "#imports"; // Adjust import path if necessary
 
 const props = defineProps({
 	title: String,
@@ -8,7 +7,7 @@ const props = defineProps({
 	handleClick: Function,
 	btnType: String,
 	textStyle: String,
-	rightIcon: [String, Object], // Assumes rightIcon can be a string or a component
+	rightIcon: [String, Object],
 });
 </script>
 
