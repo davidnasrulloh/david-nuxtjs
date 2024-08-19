@@ -53,7 +53,7 @@ onMounted(() => {
 	<Navbar />
 	<section class="flex flex-col sm:px-16 md:px-32 lg:px-44 px-12 md:py-40 py-16 w-full">
 		<!-- Pagination -->
-		<div class="flex flex-wrap w-full justify-center gap-10 mt-12">
+		<div class="flex flex-wrap w-full justify-center gap-10 mt-36 md:mt-12">
 			<div class="flex flex-row gap-4">
 				<button
 					v-for="index in totalPages"
