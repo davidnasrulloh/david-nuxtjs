@@ -120,9 +120,10 @@ const onSubmitHandler = async () => {
 					isLoading.value = false;
 					router.push("/dashboard");
 				}
-			} catch (error) {
+			} catch (error: any) {
 				isLoading.value = false;
-				console.log("Error login", error);
+				// console.log("Error login", error.response.data.error || "");
+				alert(`${error.response.data.error}`);
 			}
 		} else {
 			alert(`${emailValid.value.text} ${passValid.value.text}`);
