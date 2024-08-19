@@ -6,7 +6,7 @@ import davidImg from "~/assets/images/img_david.jpg"; // Adjust import paths if 
 import { styles } from "#imports"; // Adjust import paths if necessary
 import { isAuthenticated } from "~/middleware/auth";
 import CustomButton from "./CustomButton.vue";
-import { removeCredential } from "~/service/cookies";
+import { logout } from "~/service/authApi";
 
 const props = defineProps({
 	backgroundStyle: String,
@@ -38,7 +38,7 @@ function handleClickIfNotLogin(event: Event) {
 					<img :src="davidImg" class="w-20 rounded-full mr-3" />
 					<p class="my-auto text-3xl sm:text-[20px] font-semibold">David Nasrulloh</p>
 				</div>
-				<div @click="openNavHandler" class="my-auto">
+				<div @click="openNavHandler" class="my-auto cursor-pointer">
 					<Icon icon="ri:close-line" class="text-4xl text-blue-500" />
 				</div>
 			</div>
@@ -54,7 +54,7 @@ function handleClickIfNotLogin(event: Event) {
 					<NuxtLink to="https://github.com/davidnasrulloh" target="_blank">My Github</NuxtLink>
 				</li>
 			</ul>
-			<div v-if="isAuthenticated()" @click="removeCredential">
+			<div class="mt-12" v-if="isAuthenticated()" @click="logout">
 				<CustomButton title="Logout" textStyle="text-2xl font-semibold" containerStyle="w-full bg-red-500 hover:bg-red-400" btnType="submit" />
 			</div>
 		</section>
@@ -80,7 +80,7 @@ function handleClickIfNotLogin(event: Event) {
 				</li>
 			</ul>
 
-			<div v-if="isAuthenticated()" @click="removeCredential">
+			<div class="hidden lg:block" v-if="isAuthenticated()" @click="logout">
 				<CustomButton title="Logout" textStyle="text-2xl font-semibold" containerStyle="w-full bg-red-500 hover:bg-red-400" btnType="submit" />
 			</div>
 

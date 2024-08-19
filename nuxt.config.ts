@@ -10,6 +10,11 @@ export default defineNuxtConfig({
 			autoprefixer: {},
 		},
 	},
+	runtimeConfig: {
+		public: {
+			BASE_URL: process.env.NUXT_BASE_URL_APP,
+		},
+	},
 	hooks: {
 		"pages:extend"(pages) {
 			function setMiddleware(pages: NuxtPage[]) {

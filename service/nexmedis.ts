@@ -8,10 +8,8 @@ const nexmedis = axios.create({
 	},
 });
 
-// Menambahkan token ke setiap permintaan jika ada
 nexmedis.interceptors.request.use((config) => {
 	const token = getToken();
-	console.log("itemku token", token);
 	if (token) {
 		config.headers.Authorization = `Bearer ${token}`;
 	}

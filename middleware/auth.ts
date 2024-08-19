@@ -15,7 +15,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
 		if (isAuthenticated()) {
 			if (to.path === "/login") {
-				// Jika pengguna mencoba mengakses halaman login, redirect ke dashboard
 				return navigateTo("/dashboard");
 			}
 		} else {

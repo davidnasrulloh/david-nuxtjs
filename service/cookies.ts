@@ -23,7 +23,6 @@ function getCookie(cookieName: string, key: string = ""): string | void {
 	if (bytes.toString(CryptoJS.enc.Utf8)) {
 		const decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 		if (decryptedData[key]) return decryptedData[key];
-		console.log("itemku decryptedData", decryptedData);
 		return decryptedData;
 	} else {
 		return;

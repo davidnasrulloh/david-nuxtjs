@@ -29,10 +29,6 @@ const data = ref({
 
 const copied = ref<string | null>(null);
 
-watchEffect(() => {
-	console.log("itemku data", data.value);
-});
-
 const isValidEmail = (email: string) => {
 	const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 	return emailRegex.test(email);
@@ -127,16 +123,16 @@ const onSubmitHandler = async () => {
 	<section class="md:mx-32">
 		<Navbar />
 		<section class="flex flex-row max-h-screen sm:px-16 md:px-32 lg:px-44 px-12 md:py-44 py-16">
-			<div class="hidden lg:block my-auto lg:2/3 xl:w-3/4 2xl:w-3/5 3xl:w-2/4 lg:pr-20 xl:pr-0 xl:mt-36 2xl:mt-12">
+			<div class="hidden lg:block my-auto lg:2/3 xl:w-3/4 2xl:w-3/5 3xl:w-2/4 lg:pr-20 xl:pr-0 mt-[8rem]">
 				<img :src="loginIlustration" alt="" class="lg:w-full xl:w-3/4" />
 			</div>
-			<div class="w-full 2xl:w-3/4 xsm:pt-32 sm:pt-44 md:pt-44">
+			<div class="w-full 2xl:w-3/4 pt-[8rem]">
 				<h1 class="font-bold text-gray-800 xsm:text-4xl md:text-5xl 2xl:text-6xl"><span class="text-blue-700">Login</span> Page</h1>
 				<div class="border border-gray-300 border-b-4 rounded-full w-32 mt-6 2xl:mt-10"></div>
 				<h3 class="text-2xl sm:text-3xl xl:text-4xl h-16 mt-4 bg-gradient-to-r from-blue-500 to-green-300 text-transparent bg-clip-text font-medium">Langkah Pertama Menuju Petualangan!</h3>
 				<p class="text-gray-400 text-xl sm:text-2xl w-full xl:w-2/3 leading-relaxed">Kami merindukan Anda. Masukkan email dan password informasi akun Anda untuk melanjutkan.</p>
 				<div class="flex flex-col space-y-4 mt-8">
-					<label for="user-info" class="bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold text-lg shadow-md border border-blue-600"> User Information: </label>
+					<label for="user-info" class="bg-blue-50 text-blue-500 py-2 px-4 rounded-lg font-semibold text-lg shadow-md border border-blue-600"> User Information : </label>
 					<div class="flex flex-col space-y-2">
 						<div class="flex items-center space-x-2">
 							<p id="email-info" class="bg-white text-gray-800 py-2 px-4 rounded-lg text-lg border border-gray-300">eve.holt@reqres.in</p>
