@@ -41,7 +41,7 @@ const handleLogout = async () => {
 </script>
 
 <template>
-	<nav>
+	<nav class="bg-white">
 		<!-- Mobile Navbar -->
 		<section :class="['mobile-navbar', nav ? 'open-nav' : '', 'px-28']">
 			<div class="flex flex-row justify-center w-full mb-10">

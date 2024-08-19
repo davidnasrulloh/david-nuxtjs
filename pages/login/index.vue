@@ -31,12 +31,18 @@ const data = ref({
 });
 
 const isLoading = ref(false);
+const isShowPassword = ref(false);
 
 const copied = ref<string | null>(null);
 
 const isValidEmail = (email: string) => {
 	const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 	return emailRegex.test(email);
+};
+
+const onHandleShowPassword = (event: Event) => {
+	const target = event.target as HTMLInputElement;
+	isShowPassword.value = target.checked;
 };
 
 const onChangeDataHandler = (ev: Event) => {
@@ -128,7 +134,7 @@ const onSubmitHandler = async () => {
 </script>
 
 <template>
-	<section class="md:mx-32">
+	<section class="md:mx-32 text-xl">
 		<Navbar />
 		<section class="flex flex-row max-h-screen sm:px-16 md:px-32 lg:px-44 px-12 md:py-44 py-16">
 			<div class="hidden lg:block my-auto lg:2/3 xl:w-3/4 2xl:w-3/5 3xl:w-2/4 lg:pr-20 xl:pr-0 mt-[8rem]">
@@ -140,14 +146,14 @@ const onSubmitHandler = async () => {
 				<h3 class="text-2xl sm:text-3xl xl:text-4xl h-16 mt-4 bg-gradient-to-r from-blue-500 to-green-300 text-transparent bg-clip-text font-medium">Langkah Pertama Menuju Petualangan!</h3>
 				<p class="text-gray-400 text-xl sm:text-2xl w-full xl:w-2/3 leading-relaxed">Kami merindukan Anda. Masukkan email dan password informasi akun Anda untuk melanjutkan.</p>
 				<div class="flex flex-col space-y-4 mt-8">
-					<label for="user-info" class="bg-blue-50 text-blue-500 py-2 px-4 rounded-lg font-semibold text-lg shadow-md border border-blue-600"> User Information : </label>
+					<label for="user-info" class="bg-blue-50 text-blue-500 py-2 px-4 rounded-lg font-semibold text-xl shadow-md border border-blue-600"> User Information : </label>
 					<div class="flex flex-col space-y-2">
 						<div class="flex items-center space-x-2">
-							<p id="email-info" class="bg-white text-gray-800 py-2 px-4 rounded-lg text-lg border border-gray-300">eve.holt@reqres.in</p>
+							<p id="email-info" class="bg-white text-gray-800 py-2 px-4 rounded-lg text-xl border border-gray-300">eve.holt@reqres.in</p>
 							<button @click="copyToClipboard('email-info')" class="bg-blue-500 text-white py-1 px-3 rounded-lg shadow-md hover:bg-blue-600">Copy Email</button>
 						</div>
 						<div class="flex items-center space-x-2">
-							<p id="password-info" class="bg-white text-gray-800 py-2 px-4 rounded-lg text-lg border border-gray-300">cityslicka</p>
+							<p id="password-info" class="bg-white text-gray-800 py-2 px-4 rounded-lg text-xl border border-gray-300">cityslicka</p>
 							<button @click="copyToClipboard('password-info')" class="bg-blue-500 text-white py-1 px-3 rounded-lg shadow-md hover:bg-blue-600">Copy Password</button>
 						</div>
 					</div>
@@ -172,7 +178,7 @@ const onSubmitHandler = async () => {
 						name="password"
 						label="Password Kamu"
 						inputStyle="bg-gray-50 border border-blue-200 text-gray-900 text-xl rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full 2xl:w-3/4 pl-20 mt-4 p-2.5 h-16"
-						inputType="password"
+						:inputType="isShowPassword ? 'text' : 'password'"
 						placeholder="Password milik anda"
 						v-model="data.password"
 						labelStyle="text-gray-900"
@@ -182,6 +188,7 @@ const onSubmitHandler = async () => {
 						:error="passValid.valid"
 						:errorText="passValid.text"
 					/>
+					<div class="flex flex-row items-center gap-2"><input type="checkbox" @click="onHandleShowPassword" /> Show Password</div>
 					<div class="xl:w-1/4 lg:w-1/2 mt-10">
 						<CustomButton
 							:title="isLoading ? 'Loading' : 'Login'"
