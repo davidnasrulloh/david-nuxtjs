@@ -4,6 +4,10 @@ import Navbar from "~/components/common/Navbar.vue";
 import { getUserById } from "~/service/usersApi";
 import type { UserItem } from "~/types/users";
 
+useSeoMeta({
+	title: "Details user",
+});
+
 const router = useRoute();
 const user = ref<UserItem | null>(null);
 const isLoading = ref(true);
@@ -20,6 +24,18 @@ const fetchUser = async () => {
 		isLoading.value = false;
 	}
 };
+
+watch(
+	user,
+	(newUser) => {
+		if (newUser) {
+			useSeoMeta({
+				title: `Details User - ${newUser.first_name} ${newUser.last_name}`,
+			});
+		}
+	},
+	{ immediate: true }
+);
 
 onMounted(() => {
 	fetchUser();

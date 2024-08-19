@@ -13,7 +13,7 @@ const props = defineProps({
 });
 
 const nav = ref(false);
-const route = useRoute();
+const isLoading = ref(false);
 
 const openNavHandler = () => {
 	nav.value = !nav.value;
@@ -27,6 +27,17 @@ function handleClickIfNotLogin(event: Event) {
 	event.preventDefault();
 	alert("Need login!");
 }
+
+const handleLogout = async () => {
+	isLoading.value = true;
+	try {
+		await logout();
+	} catch (error) {
+		console.error("Logout error:", error);
+	} finally {
+		isLoading.value = false;
+	}
+};
 </script>
 
 <template>
@@ -48,14 +59,20 @@ function handleClickIfNotLogin(event: Event) {
 				</li>
 				<li class="w-full">
 					<NuxtLink v-if="isAuthenticated()" to="/dashboard" :class="{ 'font-bold': $route.path === '/dashboard' }"> Dashboard </NuxtLink>
-					<NuxtLink v-if="!isAuthenticated()" @click.prevent="handleClickIfNotLogin" class="cursor-pointer text-blue-500"> Dashboard </NuxtLink>
+					<NuxtLink v-if="!isAuthenticated()" @click.prevent="handleClickIfNotLogin" class="cursor-pointer"> Dashboard </NuxtLink>
 				</li>
 				<li class="w-full">
 					<NuxtLink to="https://github.com/davidnasrulloh" target="_blank">My Github</NuxtLink>
 				</li>
 			</ul>
-			<div class="mt-12" v-if="isAuthenticated()" @click="logout">
-				<CustomButton title="Logout" textStyle="text-2xl font-semibold" containerStyle="w-full bg-red-500 hover:bg-red-400" btnType="submit" />
+			<div class="mt-12" v-if="isAuthenticated()" @click="handleLogout">
+				<CustomButton
+					:title="isLoading ? 'Loading' : 'Logout'"
+					textStyle="text-2xl font-semibold"
+					:containerStyle="isLoading ? 'bg-red-200' : 'w-full bg-red-500 hover:bg-red-400'"
+					btnType="submit"
+					@click="handleLogout"
+				/>
 			</div>
 		</section>
 
@@ -80,8 +97,14 @@ function handleClickIfNotLogin(event: Event) {
 				</li>
 			</ul>
 
-			<div class="hidden lg:block" v-if="isAuthenticated()" @click="logout">
-				<CustomButton title="Logout" textStyle="text-2xl font-semibold" containerStyle="w-full bg-red-500 hover:bg-red-400" btnType="submit" />
+			<div class="hidden lg:block" v-if="isAuthenticated()">
+				<CustomButton
+					:title="isLoading ? 'Loading' : 'Logout'"
+					textStyle="text-2xl font-semibold"
+					:containerStyle="isLoading ? 'bg-red-200' : 'w-full bg-red-500 hover:bg-red-400'"
+					btnType="submit"
+					@click="handleLogout"
+				/>
 			</div>
 
 			<div class="mobile-hamb" @click="openNavHandler">

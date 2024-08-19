@@ -7,8 +7,11 @@ import loginIlustration from "~/assets/images/login-illustration.png";
 import { login } from "~/service/authApi";
 import { getToken } from "~/service/cookies";
 
-const router = useRouter();
+useSeoMeta({
+	title: "Login",
+});
 
+const router = useRouter();
 const emailIcon = "mdi:email";
 const passwordIcon = "mingcute:lock-fill";
 
@@ -26,6 +29,8 @@ const data = ref({
 	email: "",
 	password: "",
 });
+
+const isLoading = ref(false);
 
 const copied = ref<string | null>(null);
 
@@ -102,12 +107,15 @@ const onSubmitHandler = async () => {
 	if (data.value.email !== "" && data.value.password !== "") {
 		if (emailValid.value.valid && passValid.value.valid) {
 			try {
+				isLoading.value = true;
 				await login(data.value.email, data.value.password);
 				const token = getToken();
 				if (token) {
+					isLoading.value = false;
 					router.push("/dashboard");
 				}
 			} catch (error) {
+				isLoading.value = false;
 				console.log("Error login", error);
 			}
 		} else {
@@ -175,7 +183,12 @@ const onSubmitHandler = async () => {
 						:errorText="passValid.text"
 					/>
 					<div class="xl:w-1/4 lg:w-1/2 mt-10">
-						<CustomButton title="Login" textStyle="text-2xl font-semibold" containerStyle="w-full bg-blue-600 hover:bg-blue-500" btnType="submit" />
+						<CustomButton
+							:title="isLoading ? 'Loading' : 'Login'"
+							textStyle="text-2xl font-semibold"
+							:containerStyle="isLoading ? 'bg-blue-200' : 'bg-blue-600 w-full hover:bg-blue-500'"
+							btnType="submit"
+						/>
 					</div>
 					<p class="text-xl mt-4 text-gray-400">
 						Belum memiliki akun?

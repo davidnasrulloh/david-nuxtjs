@@ -4,6 +4,10 @@ import Navbar from "~/components/common/Navbar.vue";
 import { getUserList } from "~/service/usersApi";
 import type { IListUser } from "~/types/users";
 
+useSeoMeta({
+	title: "List Users",
+});
+
 definePageMeta({
 	middleware: "auth",
 });

@@ -2,6 +2,10 @@
 import CustomButton from "~/components/common/CustomButton.vue";
 import Navbar from "~/components/common/Navbar.vue";
 
+useSeoMeta({
+	title: "Dashboard",
+});
+
 definePageMeta({
 	middleware: "auth",
 });
